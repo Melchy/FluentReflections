@@ -106,5 +106,11 @@ namespace Tests
             
         }
         
+        public int this[int i]
+        {
+            get => 1;
+            set {}
+        }
+        
     }
 }

@@ -23,7 +23,7 @@ namespace FluentReflections
             return ParameterInfo.Position;
         }
 
-        public TypeReflection GetType()
+        public new TypeReflection GetType()
         {
             return ParameterInfo.ParameterType.Reflection();
         }

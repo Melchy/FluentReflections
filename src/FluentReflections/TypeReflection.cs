@@ -154,8 +154,12 @@ namespace FluentReflections
         
         public IEnumerable<PropertyOrFieldReflection> GetPropertiesAndFields()
         {
-            var properties = Type.GetProperties(BindingFlagsAny.Get()).Select(x => x.Reflection());
-            var fields = Type.GetFields(BindingFlagsAny.Get()).Select(x => x.Reflection()).Where(x=>!x.HasAttribute<CompilerGeneratedAttribute>());
+            var properties = Type.GetProperties(BindingFlagsAny.Get())
+                .Where(x=>x.GetIndexParameters().Length == 0) //filter out indexers
+                .Select(x => x.Reflection());
+            var fields = Type.GetFields(BindingFlagsAny.Get())
+                .Select(x => x.Reflection())
+                .Where(x=>!x.HasAttribute<CompilerGeneratedAttribute>());
             return properties.Concat(fields);
         }
         

@@ -23,7 +23,7 @@ namespace FluentReflections
             Field = fieldInfo;
         }
 
-        public TypeReflection GetType()
+        public new TypeReflection GetType()
         {
             if (Field != null)
                 return Field.FieldType.Reflection();
