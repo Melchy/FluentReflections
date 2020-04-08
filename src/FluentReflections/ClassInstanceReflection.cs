@@ -29,6 +29,7 @@ namespace FluentReflections
         {
             if (instance == null)
                 throw new ArgumentNullException(nameof(instance));
+
             return new ClassInstanceReflection(instance, instance.GetType());
         }
 

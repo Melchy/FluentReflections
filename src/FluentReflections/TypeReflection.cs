@@ -80,13 +80,18 @@ namespace FluentReflections
             return constructor != null;
         }
         
-        public object CreateInstance(params object[] args)
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns>Returns newly created instance or null for nullable value type.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        public object? CreateInstance(params object[] args)
         {
             try
             {
                 var instance = Activator.CreateInstance(Type, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, args, null);
-                if (instance == null)
-                    throw new InvalidOperationException($"Activator.CreateInstance returned null");
                 return instance;
             }
             catch (MissingMethodException e)
@@ -119,9 +124,9 @@ namespace FluentReflections
                        typeof(DateTime),
                        typeof(DateTimeOffset),
                        typeof(TimeSpan),
-                       typeof(Guid)
-                   }.Contains(Type) ||
-                   Convert.GetTypeCode(Type) != TypeCode.Object;
+                       typeof(Guid),
+                       typeof(object)
+                   }.Contains(Type);
         }
 
         public IEnumerable<MethodReflection> GetMethods()
@@ -181,17 +186,7 @@ namespace FluentReflections
                 throw new InvalidOperationException($"Type {Type.Name} does not implement property or field {property}");
             return property.Reflection();
         }
-        
-        public bool IsGenericType()
-        {
-            return Type.IsGenericType;
-        }
-        
-        public bool IsValueType()
-        {
-            return Type.IsValueType;
-        }
-        
+
         private bool ImplementsOpenGenericType(Type generic)
         {
             var toCheck = Type;

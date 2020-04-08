@@ -241,6 +241,39 @@ namespace Tests
             methods.Count().Should().Be(14);
         }
         
+        [Theory]
+        [InlineData(typeof(Boolean))]
+        [InlineData(typeof(Byte))]
+        [InlineData(typeof(SByte))]
+        [InlineData(typeof(Int16))]
+        [InlineData(typeof(UInt16))]
+        [InlineData(typeof(Int32))]
+        [InlineData(typeof(UInt32))]
+        [InlineData(typeof(Int64))]
+        [InlineData(typeof(UInt64))]
+        [InlineData(typeof(IntPtr))]
+        [InlineData(typeof(Char))]
+        [InlineData(typeof(UIntPtr))]
+        [InlineData(typeof(Double))]
+        [InlineData(typeof(Single))]
+        [InlineData(typeof(Object))]
+        [InlineData(typeof(String))]
+        [InlineData(typeof(Decimal))]
+        [InlineData(typeof(DateTime))]
+        [InlineData(typeof(DateTimeOffset))]
+        [InlineData(typeof(TimeSpan))]
+        [InlineData(typeof(Guid))]
+        public void IsSimpleTypeSimpleValues(Type type)
+        {
+            type.Reflection().IsSimpleType().Should().BeTrue();
+        }
+        
+        [Fact]
+        public void IsSimpleTypeNonSimple()
+        {
+            typeof(ClassToAnalyze).Reflection().IsSimpleType().Should().BeFalse();
+        }
+        
         [Fact]
         public void GetMethodThatExists()
         {

@@ -13,16 +13,6 @@ namespace FluentReflections
             ParameterInfo = parameterInfo;
         }
 
-        public string GetName()
-        {
-            return ParameterInfo.Name;
-        }
-
-        public int GetPosition()
-        {
-            return ParameterInfo.Position;
-        }
-
         public new TypeReflection GetType()
         {
             return ParameterInfo.ParameterType.Reflection();

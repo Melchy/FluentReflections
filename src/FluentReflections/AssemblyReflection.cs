@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace FluentReflections
 {
-    public class AssemblyReflections
+    public class AssemblyReflection
     {
-        private readonly Assembly _assembly;
+        public Assembly Assembly { get; }
 
-        public AssemblyReflections(Assembly assembly)
+        public AssemblyReflection(Assembly assembly)
         {
-            _assembly = assembly;
+            Assembly = assembly;
         }
 
         public IEnumerable<TypeReflection> GetAllTypesImplementing<T>()
@@ -21,13 +21,18 @@ namespace FluentReflections
 
         public IEnumerable<TypeReflection> GetAllTypesImplementing(Type typeToSearch)
         {
-            return _assembly.GetTypes().Select(x => ReflectionFactory.Reflection((Type) x))
+            return Assembly.GetTypes().Select(x => ReflectionFactory.Reflection((Type) x))
                 .Where(x => x.Implements(typeToSearch));
         }
 
         public IEnumerable<TypeReflection> GetAllTypesWithAttribute<T>() where T : Attribute
         {
-            return _assembly.GetTypes().Select(x => x.Reflection()).Where(x => x.HasAttribute<T>());
+            return GetAllTypesWithAttribute(typeof(T));
+        }
+        
+        public IEnumerable<TypeReflection> GetAllTypesWithAttribute(Type type)
+        {
+            return Assembly.GetTypes().Select(x => x.Reflection()).Where(x => x.HasAttribute(type));
         }
     }
 }

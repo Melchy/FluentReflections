@@ -33,11 +33,11 @@ namespace FluentReflections
             return ClassInstanceReflection.CreateInstanceTypeReflection(instance);
         }
 
-        public static AssemblyReflections Reflection(this Assembly assembly)
+        public static AssemblyReflection Reflection(this Assembly assembly)
         {
             if (assembly == null)
                 throw new ArgumentNullException(nameof(assembly));
-            return new AssemblyReflections(assembly);
+            return new AssemblyReflection(assembly);
         }
 
         public static MethodReflection Reflection(this MethodInfo methodInfo)

@@ -75,16 +75,6 @@ namespace FluentReflections
             return MethodInfo.IsAssembly;
         }
         
-        public bool IsStatic()
-        {
-            return MethodInfo.IsStatic;
-        }
-
-        public string GetName()
-        {
-            return MethodInfo.Name;
-        }
-        
         public bool IsGeneric()
         {
             return MethodInfo.IsGenericMethod;

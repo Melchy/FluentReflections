@@ -23,10 +23,14 @@ namespace Tests
             
         }
     }
-    
+
+    public class BaseNonGeneric
+    {
+        
+    }    
 
     [BaseTest]
-    public class BaseClass<TType>
+    public class BaseClass<TType> : BaseNonGeneric
     {
         
     }
@@ -58,7 +62,7 @@ namespace Tests
         protected string ProtectedField = "ProtectedField";
         public string PublicField = "PublicField";
 
-        private static string PrivateStaticProperty { get; set; } = "PrivateStaticProperty";
+        private static int? PrivateStaticProperty { get; set; } = 1;
         public static string PublicStaticProperty { get; set; } = "PublicStaticProperty";
         protected static string ProtectedStaticProperty { get; set; } = "ProtectedStaticProperty";
 
@@ -70,7 +74,7 @@ namespace Tests
         {
             
         }
-        
+        [Test]
         private void PrivateMethod([Test] int param)
         {
             
