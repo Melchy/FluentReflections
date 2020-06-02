@@ -109,6 +109,58 @@ namespace Tests
         {
             
         }
+
+        public static void OverloadedMethod(int a)
+        {
+            
+        } 
+        
+        public static void OverloadedMethod(string a)
+        {
+            
+        }
+        
+        private void GenericOverloadedMethod<TType>(string a)
+        {
+            
+        }
+        
+        private void GenericOverloadedMethod<TType>(int a)
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParameters<TType>()
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParameters<TType, TType2>()
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParametersAndArguments<TType>(string a)
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParametersAndArguments<TType>(int a)
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParametersAndArguments<TType, TType2>(string a)
+        {
+            
+        }
+        
+        private void MethodOverloadedByGenericParametersAndArguments<TType, TType2>(int a)
+        {
+            
+        }
+        
+        
         
         public int this[int i]
         {

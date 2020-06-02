@@ -230,7 +230,7 @@ namespace Tests
         public void GetMethodsWithoutParentMethods()
         {
             var methods = typeof(ClassToAnalyze).Reflection().GetMethodsWithoutParentMethods();
-            methods.Count().Should().Be(8);
+            methods.Count().Should().Be(18);
         }
         
         
@@ -238,7 +238,7 @@ namespace Tests
         public void GetMethods()
         {
             var methods = typeof(ClassToAnalyze).Reflection().GetMethods();
-            methods.Count().Should().Be(14);
+            methods.Count().Should().Be(24);
         }
         
         [Theory]
@@ -281,6 +281,41 @@ namespace Tests
             method.Should().NotBe(null);
         }
         
+        [Fact]
+        public void GetMethodWithOverloads()
+        {
+            var method = typeof(ClassToAnalyze).Reflection().GetMethod("OverloadedMethod", new Type[]{typeof(int)});
+            method.Should().NotBe(null);
+        }
+        
+        [Fact]
+        public void GetGenericMethod()
+        {
+            var method = typeof(ClassToAnalyze).Reflection().GetGenericMethod("GenericMethod");
+            method.Should().NotBe(null);
+        }
+        
+        [Fact]
+        public void GetMethodOverloadedByNumberOfGenericParameters()
+        {
+            var method = typeof(ClassToAnalyze).Reflection().GetGenericMethod("MethodOverloadedByGenericParameters", 1);
+            method.Should().NotBe(null);
+        }
+        
+        [Fact]
+        public void GetGenericMethodOverloadedByArguments()
+        {
+            var method = typeof(ClassToAnalyze).Reflection().GetGenericMethod("GenericOverloadedMethod", new []{typeof(int)});
+            method.Should().NotBe(null);
+        }
+        
+        [Fact]
+        public void GetGenericMethodOverloadedByArgumentsAndNumberOfGenericParameters()
+        {
+            var method = typeof(ClassToAnalyze).Reflection().GetGenericMethod("MethodOverloadedByGenericParametersAndArguments",2,new []{typeof(int)});
+            method.Should().NotBe(null);
+        }
+
         [Fact]
         public void GetMethodThatDoesNotExists()
         {

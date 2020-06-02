@@ -100,7 +100,7 @@ namespace FluentReflections
             }
         }
         
-        public object CreateInstance<TResult>(params object[] args)
+        public TResult CreateInstance<TResult>(params object[] args)
         {
             var instance = CreateInstance(args);
             if (instance is TResult result)
@@ -153,6 +153,61 @@ namespace FluentReflections
             var method = Type.GetMethod(methodName, BindingFlagsAny.Get());
             if(method == null)
                 throw new InvalidOperationException($"Type {Type.Name} does not implement method {methodName}");
+            
+            return method.Reflection();
+        }
+        
+        public MethodReflection GetMethod(string methodName, Type[] arguments)
+        {
+            var method = Type.GetMethod(methodName, 0, BindingFlagsAny.Get(),Type.DefaultBinder, arguments, null);
+            if (method == null)
+            {
+                var argumentsStr = string.Join(",", arguments.Select(x => x.ToString()));
+                throw new InvalidOperationException($"Type {Type.Name} does not implement method {methodName} with arguments {argumentsStr}");
+            }
+            
+            return method.Reflection();
+        }
+        
+        public MethodReflection GetGenericMethod(string methodName)
+        {
+            var method = Type.GetMethod(methodName, BindingFlagsAny.Get());
+            if(method == null)
+                throw new InvalidOperationException($"Type {Type.Name} does not implement generic method {methodName}");
+            
+            return method.Reflection();
+        }
+        
+        public MethodReflection GetGenericMethod(string methodName, Type[] arguments)
+        {
+            var method = Type.GetMethod(methodName, BindingFlagsAny.Get(), Type.DefaultBinder, arguments, null);
+            if (method == null)
+            {
+                var argumentsStr = string.Join(",", arguments.Select(x => x.ToString()));
+                throw new InvalidOperationException($"Type {Type.Name} does not implement generic method {methodName} with arguments {argumentsStr}");
+            }
+            
+            return method.Reflection();
+        }
+        
+        
+        public MethodReflection GetGenericMethod(string methodName, int numberOfGenericArguments)
+        {
+            var method = Type.GetMethod(methodName, numberOfGenericArguments, BindingFlagsAny.Get(),Type.DefaultBinder, Array.Empty<Type>(), null);
+            if(method == null)
+                throw new InvalidOperationException($"Type {Type.Name} does not implement generic method {methodName} with {numberOfGenericArguments} of generic arguments");
+            
+            return method.Reflection();
+        }
+        
+        public MethodReflection GetGenericMethod(string methodName, int numberOfGenericArguments, Type[] arguments)
+        {
+            var method = Type.GetMethod(methodName, numberOfGenericArguments, BindingFlagsAny.Get(), Type.DefaultBinder, arguments, null);
+            if (method == null)
+            {
+                var argumentsStr = string.Join(",", arguments.Select(x => x.ToString()));
+                throw new InvalidOperationException($"Type {Type.Name} does not implement generic method {methodName} with {numberOfGenericArguments} of generic arguments and with arguments {argumentsStr}");
+            }
             
             return method.Reflection();
         }
