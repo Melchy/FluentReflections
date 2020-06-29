@@ -116,17 +116,31 @@ namespace FluentReflections
 
         public bool IsSimpleType()
         {
-            return Type.IsPrimitive ||
-                   new Type[]
-                   {
-                       typeof(String),
-                       typeof(Decimal),
-                       typeof(DateTime),
-                       typeof(DateTimeOffset),
-                       typeof(TimeSpan),
-                       typeof(Guid),
-                       typeof(object)
-                   }.Contains(Type);
+            if (Type.IsPrimitive)
+            {
+                return true;
+            }
+            
+            if (Type == typeof(string) ||
+                Type == typeof(Decimal) ||
+                Type == typeof(DateTime) ||
+                Type == typeof(DateTimeOffset) ||
+                Type == typeof(TimeSpan) ||
+                Type == typeof(Guid) ||
+                Type.IsEnum)
+            {
+                return true;
+            }
+            if (Type.IsGenericType && Type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                var typeOfNullableType = Type.GetGenericArguments()[0];
+                if (typeOfNullableType.Reflection().IsSimpleType())
+                {
+                    return true;
+                }
+            }
+            
+            return Convert.GetTypeCode(Type) != TypeCode.Object;
         }
 
         public IEnumerable<MethodReflection> GetMethods()
