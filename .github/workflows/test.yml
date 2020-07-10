@@ -2,9 +2,7 @@ name: Test
 
 on: 
   push:
-    tags:
-      - '*.*.*'
-    branches-ignore:
+    branches: 
       - '*'
 
 jobs:
