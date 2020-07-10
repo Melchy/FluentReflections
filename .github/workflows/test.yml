@@ -1,10 +1,5 @@
 name: Test
 
-on: 
-  push:
-    branches: 
-      - '*'
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
