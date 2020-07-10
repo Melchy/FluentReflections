@@ -16,7 +16,7 @@ namespace FluentReflections
             _enclosingType = enclosingType;
         }
 
-        public object? Invoke(params object[] arguments)
+        public object? Invoke(params object?[] arguments)
         {
             if (IsGeneric())
             {
@@ -25,7 +25,7 @@ namespace FluentReflections
             return MethodInfo.Invoke(_enclosingType, arguments);
         }
         
-        public object? InvokeGeneric(Type[] genericTypes, params object[] arguments)
+        public object? InvokeGeneric(Type[] genericTypes, params object?[] arguments)
         {
             if (!IsGeneric())
             {
