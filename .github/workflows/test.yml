@@ -5,9 +5,8 @@ on:
     branches:
       - '**'
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
