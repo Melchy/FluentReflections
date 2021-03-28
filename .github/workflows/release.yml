@@ -26,4 +26,4 @@ jobs:
         cd src/
         dotnet pack --configuration Release /p:Version=${GITHUB_REF:10}
     - name: release package
-      run: dotnet nuget push **/*.nupkg --api-key ${{secrets.NUGET}} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/*.nupkg --api-key ${{secrets.nuget}} --source https://api.nuget.org/v3/index.json
